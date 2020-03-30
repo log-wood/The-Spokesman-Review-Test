@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>TheSpokesman-Review Interview</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+  <style>
+    .slider_img{
+      max-width: 8.333%;
+    }
+    .slider_img:hover{
+      outline: 2px solid #bd1313;
+      outline-offset: -2px;
+      transform: scale(1.1);
+    }
+    .transition{
+      -webkit-transition: right 1s ease-in-out;
+        -moz-transition: right 1s ease-in-out;
+          -o-transition: right 1s ease-in-out;
+            transition: right 1s ease-in-out;
+    }
+    .hidden {
+      right: calc(50vw + 32rem) !important;
+    }
+    #employee_info {
+      opacity: 1;
+      transition: opacity 1s;
+    }
+    #employee_info.fade {
+      opacity: 0;
+    }
+    .selected {
+      outline: 6px solid #bd1313;
+      outline-offset: -6px;
+    }
+  </style>
+  <script type="text/javascript">
+    const data = [
+      {
+        name: "Jesse Tinsley",
+        text: "Meet Jesse Tinsley. As a certified drone pilot, this veteran Spokesman-Review photographer often can be seen capturing beautiful aerial photographs of our region. Sometimes though, the job requires getting down with the dogs.",
+        image: "https://media.spokesman.com/photos/2020/03/25/_JESSE_TINSLEY_NEWSROOM_SCRAPBOOK_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Jim Meehan",
+        text: "Jim Meehan is no stranger to Zag Nation. As the lead writer covering the Gonzaga men's basketball team, he tells the stories behind the game and gets fans a bit closer to their favorite players.",
+        image: "https://media.spokesman.com/photos/2020/03/25/MEEHAN2_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Don Chareunsy",
+        text: "Don Chareunsy is a foodie at heart. Whether it's interviewing acclaimed chefs such as Anita Lo or heading up The Spokesman-Review's features team, Don helps tell the stories that keep the Spokane region in the know, and well-fed.",
+        image: "https://media.spokesman.com/photos/2020/03/25/DON_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Emma Epperly",
+        text: "Emma Epperly does a lot of everything. As a general assignment reporter, she is called on to cover car accidents, interview movie stars, pitch in on breaking news and take on whatever story the day presents her with. She has come to appreciate the unexpected.",
+        image: "https://media.spokesman.com/photos/2020/03/25/EMMA2_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Azaria Podplesky",
+        text: "Features writer Azaria Podplesky always looks for ways to entertain her readers, whether it's by highlighting the best local events in her weekly columns in 7, or by going behind the scenes and finding interesting stories to tell.",
+        image: "https://media.spokesman.com/photos/2020/03/25/AZARIA_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Amy Edelen",
+        text: "Amy Edelen knows business. As a member of The Spokesman-Review's business team, she helps readers stay informed on housing prices, unemployment, growth trends, and business deals.",
+        image: "https://media.spokesman.com/photos/2020/03/25/AMY_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Adam Shanks",
+        text: "Meet Adam Shanks, our Spokane city government reporter. Although he was raised in upstate New York, Adam is a Northwesterner at heart. He sits through City Council meetings so you don't have to.",
+        image: "https://media.spokesman.com/photos/2020/03/25/ADAM_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Shawn Vestal",
+        text: "Shawn Vestal, our resident news columnist, has held officials accountable for their misdeeds and celebrated citizens who have risen to the occasion. His work has inspired some to take action, and others to fire off letters to the editor.",
+        image: "https://media.spokesman.com/photos/2020/03/25/VESTAL3_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Arielle Dreher",
+        text: "Arielle Dreher came to The Spokesman-Review thanks to support from Report for America and the Innovia Foundation.  Her reporting on critical health issues facing residents in rural Washington and Idaho is even more vital today.",
+        image: "https://media.spokesman.com/photos/2020/03/25/ARIELLE_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Jim Camden",
+        text: "When it comes to covering government, Jim Camden is the dean. Literally. As the most veteran member of the Statehouse press corps, Jim keeps our readers well-informed on all of the action in Olympia.",
+        image: "https://media.spokesman.com/photos/2020/03/25/CAMDEN_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Molly Quinn",
+        text: "There is no artist in Spokane like Molly Quinn. Her whimsical style is instantly recognizable to readers of The Spokesman-Review. She has painted gorgeous illustrations that instantly elevate the journalism accompanying it. She brings to life the stories that defy photography. She makes our pages better.",
+        image: "https://media.spokesman.com/photos/2020/03/25/MOLLY_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      },
+      {
+        name: "Rob Curley",
+        text: "Spokesman-Review editor Rob Curley loves to talk with people and learn about their lives, whether it's a best-selling author or a stranger he meets downtown on his walk to lunch. It's that inquisitive nature combined with a playful sense of storytelling that helps make our newspaper different than most.",
+        image: "https://media.spokesman.com/photos/2020/03/25/ROB_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857"
+      }
+    ];
+    var timer = window.setInterval(function(){
+      slider(current+1);
+    }, 7000);
+    var employee = '';
+    var current = 0;
+    function slider(pos) {
+      window.clearInterval(timer);
+      timer = window.setInterval(function(){
+        slider(current+1);
+      }, 7000)
+      if (current == 11) {
+        document.querySelectorAll(".slider_img")[current].classList.remove('selected');
+        current = 0;
+        pos = 0;
+      };
+      document.querySelectorAll(".slider_img")[current].classList.remove('selected');
+      current = pos;
+      document.querySelectorAll(".slider_img")[current].classList.add('selected');
+      employee = data[pos];
+      document.getElementById("slider").classList.add('hidden');
+      document.getElementById("employee_figcaption").classList.add('hidden');
+      document.getElementById("employee_info").classList.add('fade');
+    };
+    window.onload = function () {
+      document.getElementById("employee_info").ontransitionend = () => {
+        document.getElementById("employee_img").src = employee["image"];
+        document.getElementById("employee_name").innerHTML = employee["name"];
+        document.getElementById("employee_text").innerHTML = employee["text"];
+        document.getElementById("slider").classList.remove('hidden');
+        document.getElementById("employee_figcaption").classList.remove('hidden');
+        document.getElementById("employee_info").classList.remove('fade');
+      };
+    };
+  </script>
+  <body style="font-family:Helvetica;">
+    <article class="flex flex-column mw6 center">
+      <h1 class="fw1 f3 pr4 mt5">
+        <span class="b">The Spokesman-Review's</span> local journalism has never been
+        more important to this community. And now we need your help.
+      </h1>
+      <p class="ma0 pr2 mb5">
+        The reporters, photographers, designers, and editors in our newsroom
+        are working hard to keep Eastern Washington and North Idaho informed
+        as the news seemingly changes minute-by-minute. We've even made parts
+        of our website free. But the newsroom that tells all of these stories
+        now depends on you and your support for our journalism.
+      </p>
+    </article>
+    <section class="mw6 center tr mb3 f7" style="position:relative;">
+      <div id="slider" class="transition" style="height:.8em;width:calc(50vw + 32rem);background-color:#bd1313;margin-top:1.8em;z-index:0;top:0;right:0;position:absolute;"></div>
+      <figure id="employee_info" class="flex ma0">
+        <img class="mw-40 h4" id="employee_img" style="z-index:5;" src="https://media.spokesman.com/photos/2020/03/25/_JESSE_TINSLEY_NEWSROOM_SCRAPBOOK_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+        <figcaption id="employee_figcaption" class="w-60 transition">
+          <h2 id="employee_name" style="margin:0;">Jesse Tinsley</h2>
+          <p class="mt3 pl2" id="employee_text">Meet Jesse Tinsley. As a certified drone pilot, this veteran
+            Spokesman-Review photographer often can be seen capturing beautiful
+            aerial photographs of our region. Sometimes though, the job
+            requires getting down with the dogs.</p>
+        </figcaption>
+      </figure>
+    </section>
+    <section id="slider_img_holder" class="flex pb3">
+      <img class="slider_img selected" onclick="slider(0)" src="https://media.spokesman.com/photos/2020/03/25/_JESSE_TINSLEY_NEWSROOM_SCRAPBOOK_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(1)" src="https://media.spokesman.com/photos/2020/03/25/MEEHAN2_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(2)" src="https://media.spokesman.com/photos/2020/03/25/DON_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(3)" src="https://media.spokesman.com/photos/2020/03/25/EMMA2_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(4)" src="https://media.spokesman.com/photos/2020/03/25/AZARIA_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(5)" src="https://media.spokesman.com/photos/2020/03/25/AMY_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(6)" src="https://media.spokesman.com/photos/2020/03/25/ADAM_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(7)" src="https://media.spokesman.com/photos/2020/03/25/VESTAL3_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(8)" src="https://media.spokesman.com/photos/2020/03/25/ARIELLE_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(9)" src="https://media.spokesman.com/photos/2020/03/25/CAMDEN_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(10)" src="https://media.spokesman.com/photos/2020/03/25/MOLLY_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+      <img class="slider_img" onclick="slider(11)" src="https://media.spokesman.com/photos/2020/03/25/ROB_t450.jpg?003ad6aeea675b15dadc8a2e7a30b417f5829857">
+    </section>
+    <section class="mw6 center f7 mt5">
+      <h2 class="tc">How you can support our local journalism:</h2>
+      <article class="flex">
+        <img class="w-50" src="https://media.spokesman.com/photos/2020/03/25/NewsFronts_01.png">
+        <div class="w-50 pa2">
+          <p>
+            One of the best and easiest ways to help keep our newsroom's local
+            journalism alive is simply to subsrcribe. As our thank you, this
+            link will take you to the most inexpensive subscription rates
+            available. Unlimited access to our website and the e-edition of our
+            newspaper start at only 99&#162; a month for the first two months.
+            Home delivery and unlimited web access is as low as $1 a week.
+          </p>
+          <button style="color:white;background-color:#bd1313;" class="w-100 bw0 pa2 br1 b" type="button">Subscribe</button>
+          <p style="font-size:.8em" class="tc ma1">or call Customer Care at <span class="blue">(509) 747 - 4422</span></p>
+        </div>
+      </article>
+      <article class="flex">
+        <div class="w-50 pa2">
+          <p>
+            The Spokesman-Review works with local and national foundations to
+            help fund some of the journalism in our newspaper. What makes this
+            partnership unique is that we are one of the only news
+            orginizations in the nation to then release the copyright of these
+            stories publicly through Creative Commons. That means journalism
+            funded by our community is actually owned by our community, not by
+            our newspaper. All of this money goes directly to offsetting the
+            salaries of reporters in our newsroom and is tax deductible.
+          </p>
+          <button style="color:white;background-color:#bd1313;" class="w-100 bw0 pa2 br1 b" type="button">Donate</button>
+        </div>
+        <img class="w-50" src="https://media.spokesman.com/photos/2020/03/25/NewsFronts_02.png">
+      </article>
+    </section>
+    <div style="font-size:.6em;position:absolute;bottom:1em;right:1em;" class="flex h3 w4 ba br2">
+      <img class="w3" src="https://pbs.twimg.com/profile_images/933145126339260416/cov8wulr_400x400.jpg">
+      <p class="ma0 tc pr1 pl1">Logan Woody<br>Thank you for the oppurtunity!</p>
+    </div>
+  </body>
+</html>
